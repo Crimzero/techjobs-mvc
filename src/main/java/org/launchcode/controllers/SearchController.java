@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 /**
  * Created by LaunchCode
  */
 @Controller
 @RequestMapping("search")
 public class SearchController {
+
+    public ArrayList<HashMap<String, String>> jobs;
 
     @RequestMapping(value = "")
     public String search(Model model) {
@@ -23,5 +26,25 @@ public class SearchController {
     }
 
     // TODO #1 - Create handler to process search request and display results
+    @RequestMapping(value = "results")
+    public String Search(Model model, @RequestParam String searchTerm, @RequestParam String searchType) {
+        model.addAttribute("columns", ListController.columnChoices);
+        if(searchType.equals("all"))
+        {
+            model.addAttribute("jobs", JobData.findByValue(searchTerm));
+        }
+        else {
+            model.addAttribute("jobs", JobData.findByColumnAndValue(searchType, searchTerm));
+        }
+            return "search";
 
-}
+        }
+//    @RequestMapping(value = "results")
+  //  public String Search(Model model, @RequestParam String searchTerm) {
+    //    model.addAttribute("columns", ListController.columnChoices);
+//
+  //      model.addAttribute("jobs", JobData.findByValue(searchTerm));
+    //    return "search";
+
+    //}
+    }
