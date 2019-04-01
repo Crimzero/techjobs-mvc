@@ -37,6 +37,7 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+    <div th:if="${jobs!=null and jobs.empty}">No results found, please try again.</div>
 
 <table class="job-listing" th:each="mapItem : ${jobs}">
     <tr th:each="map : ${mapItem}">
